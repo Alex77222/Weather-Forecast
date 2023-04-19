@@ -7,7 +7,4 @@ public class AppDbContext : DbContext
 {
     public DbSet<WeatherNow> WeatherNow { get; set; }
 }
-protected override void OnConfiguring(ModelBuilder builder)
-{
-    base.OnModelCreating(builder);
-}
+
