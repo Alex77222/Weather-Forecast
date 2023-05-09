@@ -4,5 +4,6 @@ namespace WebApplication1.Services.Contracts;
 
 public interface IWeatherForecast
 {
-    public  Task<WeatherApi>  GetWeatherToDay();
+    public  Task<Weather>  GetWeatherToDay();
+    public  Task<Weather>  GetWeatherNow();
 }

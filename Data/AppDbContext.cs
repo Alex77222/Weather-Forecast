@@ -14,5 +14,12 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.Entity<WeatherNow>().HasData(
+            new WeatherNow()
+            {
+                Date = DateTime.Now,
+                Id = 1,
+                Temperature = 0.0
+            });
     }
 }

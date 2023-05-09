@@ -5,7 +5,7 @@ using WebApplication1.Services.Contracts;
 
 namespace WebApplication1.Controllers;
 
-public  class WeatherForecastController : ControllerBase
+public class WeatherForecastController : ControllerBase
 {
     private readonly IWeatherForecast _weatherForecast;
 
@@ -16,15 +16,38 @@ public  class WeatherForecastController : ControllerBase
 
     [HttpGet]
     [Route("today")]
-    public async Task<IActionResult> WeatherToDay()
+    public async Task<IActionResult> Weather()
     {
         try
         {
             var result = await _weatherForecast.GetWeatherToDay();
-            return Ok(new Response<Hourly>()
+            return Ok(new Response<Weather>()
             {
                 IsSuccess = true,
-                Data = result.Hourly
+                Data = result
+            });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new Response<string>()
+            {
+                IsSuccess = false,
+                Errors = new List<string> { e.Message }
+            });
+        }
+    }
+    
+    [HttpGet]
+    [Route("now")]
+    public async Task<IActionResult> WeatherNow()
+    {
+        try
+        {
+            var result = await _weatherForecast.GetWeatherNow();
+            return Ok(new Response<Weather>()
+            {
+                IsSuccess = true,
+                Data = result
             });
         }
         catch (Exception e)
