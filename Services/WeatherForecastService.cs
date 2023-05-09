@@ -1,6 +1,5 @@
 using AutoMapper;
 using WebApplication1.Data;
-using WebApplication1.Data.Entities;
 using WebApplication1.Helper;
 using WebApplication1.Models;
 using WebApplication1.Services.Contracts;
