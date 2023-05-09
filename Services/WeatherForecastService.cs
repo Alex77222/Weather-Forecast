@@ -18,23 +18,24 @@ public class WeatherForecastService : IWeatherForecast
         _mapper = mapper;
     }
 
-    public async Task<Weather> GetWeatherToDay()
+    public async Task<Hourly> GetWeather(DateTime? dateFrom, DateTime? dateTo)
     {
-        
         var dateToday = DateTime.Now;
-        var weather =  await HttpHelper.GetWeather(dateToday.ToString("yyyy-MM-dd"),
-            dateToday.ToString("yyyy-MM-dd"));
-
-        return _mapper.Map<Weather>(weather.Hourly);
+        var dateStart = dateFrom ??= dateToday;
+        var dateEnd = dateTo ??= dateToday;
+        var weather = await HttpHelper.GetWeather(dateStart.ToString("yyyy-MM-dd"),
+            dateEnd.ToString("yyyy-MM-dd"));
+        return weather.Hourly;
     }
+
     public async Task<Weather> GetWeatherNow()
     {
-        
         var dateToday = DateTime.Now;
-        var weather =  await HttpHelper.GetWeather(dateToday.ToString("yyyy-MM-dd"),
+        var weather = await HttpHelper.GetWeather(dateToday.ToString("yyyy-MM-dd"),
             dateToday.ToString("yyyy-MM-dd"));
         var dbWeather = await _appContext.WeatherNow.FindAsync(1);
-        if (dbWeather != null && weather.current_Weather != null && dbWeather.Date.AddHours(2)>=weather.current_Weather.time )
+        if (dbWeather != null && weather.current_Weather != null &&
+            dbWeather.Date.AddHours(2) <= weather.current_Weather.time)
         {
             dbWeather.Date = weather.current_Weather.time;
             dbWeather.Temperature = weather.current_Weather.temperature;
@@ -45,5 +46,4 @@ public class WeatherForecastService : IWeatherForecast
 
         return _mapper.Map<Weather>(dbWeather);
     }
-    
 }

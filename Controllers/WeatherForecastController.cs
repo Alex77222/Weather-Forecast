@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
@@ -16,12 +17,12 @@ public class WeatherForecastController : ControllerBase
 
     [HttpGet]
     [Route("today")]
-    public async Task<IActionResult> Weather()
+    public async Task<IActionResult> Weather(DateTime? dateTo = null, DateTime? dateFrom = null)
     {
         try
         {
-            var result = await _weatherForecast.GetWeatherToDay();
-            return Ok(new Response<Weather>()
+            var result = await _weatherForecast.GetWeather(dateFrom,dateTo);
+            return Ok(new Response<Hourly>()
             {
                 IsSuccess = true,
                 Data = result
