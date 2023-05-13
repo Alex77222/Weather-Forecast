@@ -14,13 +14,15 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet]
-    [Route("weather")]
-    public async Task<IActionResult> Weather()
+
+    [Route("today")]
+    public async Task<IActionResult> Weather(DateTime? dateTo = null, DateTime? dateFrom = null)
+
     {
         try
         {
-            var result = await _weatherForecast.GetWeatherToDay();
-            return Ok(new Response<Weather>()
+            var result = await _weatherForecast.GetWeather(dateFrom,dateTo);
+            return Ok(new Response<Hourly>()
             {
                 IsSuccess = true,
                 Data = result
