@@ -14,7 +14,7 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet]
-    [Route("today")]
+    [Route("weather")]
     public async Task<IActionResult> Weather()
     {
         try
