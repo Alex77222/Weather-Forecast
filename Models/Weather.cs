@@ -2,6 +2,7 @@ namespace WebApplication1.Models;
 
 public class Weather
 {
+    public int Id { get; set; }
+    public string Date { get; set; }
     public double Temperature { get; set; }
-    public DateTime Date { get; set; }
 }

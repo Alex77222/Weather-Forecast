@@ -17,17 +17,17 @@ public class WeatherForecastService : IWeatherForecast
         _mapper = mapper;
     }
 
-    public async Task<List<WeatherFrom>> GetWeather(DateTime? dateFrom, DateTime? dateTo)
+    public async Task<List<Weather>> GetWeather(DateTime? dateFrom, DateTime? dateTo)
     {
         var dateToday = DateTime.Now;
         var dateStart = dateFrom ??= dateToday;
         var dateEnd = dateTo ??= dateToday;
         var weather = await HttpHelper.GetWeather(dateStart.ToString("yyyy-MM-dd"),
             dateEnd.ToString("yyyy-MM-dd"));
-        var result = new List<WeatherFrom>();
+        var result = new List<Weather>();
         for (int i = 0; i < weather.Hourly.time.Count; i++)
         {
-            var weatherFrom = new WeatherFrom()
+            var weatherFrom = new Weather()
             {
                 Id = i,
                 Date = weather.Hourly.time[i],

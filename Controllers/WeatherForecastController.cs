@@ -21,7 +21,7 @@ public class WeatherForecastController : ControllerBase
         try
         {
             var result = await _weatherForecast.GetWeather(dateFrom,dateTo);
-            return Ok(new Response<List<WeatherFrom>>()
+            return Ok(new Response<List<Weather>>()
             {
                 IsSuccess = true,
                 Data = result
