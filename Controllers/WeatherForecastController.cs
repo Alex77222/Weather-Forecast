@@ -14,7 +14,6 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet]
-
     [Route("today")]
     public async Task<IActionResult> Weather(DateTime? dateTo = null, DateTime? dateFrom = null)
 
@@ -22,7 +21,7 @@ public class WeatherForecastController : ControllerBase
         try
         {
             var result = await _weatherForecast.GetWeather(dateFrom,dateTo);
-            return Ok(new Response<Hourly>()
+            return Ok(new Response<List<WeatherFrom>>()
             {
                 IsSuccess = true,
                 Data = result

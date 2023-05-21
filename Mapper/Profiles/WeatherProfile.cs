@@ -12,8 +12,5 @@ public class WeatherProfile : Profile
         CreateMap<CurrentWeather, Weather>()
             .ForMember(dest => dest.Date, opt => opt.MapFrom(x => x.time))
             .ForMember(dest => dest.Temperature, opt => opt.MapFrom(x => x.temperature));
-        CreateMap<Hourly, Weather>()
-            .ForMember(dest => dest.Date, opt => opt.MapFrom(x => Convert.ToDateTime(x.time)))
-            .ForMember(dest => dest.Temperature, opt => opt.MapFrom(x => x.temperature_2m));
     }
 }
